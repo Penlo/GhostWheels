@@ -1,0 +1,10 @@
+[meta]
+name        = "Ghost Wheels"
+author      = "PenLo"
+category    = "Race"
+version     = "1.0.0"
+description = "Draws speed-colored wheel trails for ghosts on the track surface."
+
+[script]
+site_id      = 0
+dependencies = [ "VehicleState", "Camera" ]
