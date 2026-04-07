@@ -1,93 +1,43 @@
-# Ghost Wheels
+# 🏎️ Ghost Wheels
 
-An [OpenPlanet](https://openplanet.dev/) plugin for Trackmania that renders color-coded wheel trails on the track surface for any visible ghost.
+A Trackmania plugin that paints ghost wheel trails on the track so you can see exactly where the fast line is.
 
-See brake sections, acceleration zones, and racing lines at a glance — for your PB ghost, medal ghosts, or any loaded ghost.
+Works with any ghost — your PB, medal ghosts, or any ghost you load. The trails are color-coded by speed so brake zones and acceleration points are visible at a glance.
 
-## Features
+## What It Does
 
-- Automatically tracks all ghost vehicles in the scene
-- Speed-based coloring: red for slow sections, green for fast, yellow in between
-- Time delta mode: see where you're gaining or losing time vs the ghost
-- Combined mode: speed colors with line width that pulses by time delta
-- Configurable trail window with smooth fade-out at the leading edge
-- Works with multiple ghosts simultaneously
-- Togglable settings panel via Plugins menu
+When you race alongside a ghost, Ghost Wheels draws four colored lines on the track surface tracing where the ghost's wheels have been. Red means slow (braking), green means fast, yellow is in between. You can see the racing line, where to brake, and where to push — all without taking your eyes off the road.
 
-## Installation
-
-### From OpenPlanet Plugin Manager
-
-Search for "Ghost Wheels" in the in-game OpenPlanet plugin manager (F3 → Plugin Manager).
-
-### Manual / Development
-
-1. Install [OpenPlanet](https://openplanet.dev/download)
-2. Symlink or copy the `ghost_wheels/` folder into your OpenPlanet plugins directory:
-
-```powershell
-New-Item -ItemType SymbolicLink `
-  -Path "$env:USERPROFILE\OpenplanetNext\Plugins\ghost_wheels" `
-  -Target "C:\path\to\this\repo\ghost_wheels"
-```
-
-3. Enable Developer signature mode in OpenPlanet (F3 → Developer → Signature Mode → Developer)
-4. Reload the plugin from the OpenPlanet menu
-
-## Usage
-
-1. Load a map with a ghost (PB, medal, or any loaded ghost)
-2. Start a run — trails appear as the ghost drives
-3. On subsequent runs, the full trail is available including the path ahead
-4. Toggle the settings panel from Plugins → Ghost Wheels
-
-## Settings
-
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Enabled | On | Toggle trail rendering |
-| Line Width | 2.0 | Width of the wheel trails (0.5–10.0) |
-| Opacity | 0.8 | Trail opacity (0.0–1.0) |
-| Trail Behind | 3.0s | How far behind to show |
-| Trail Ahead | 2.0s | How far ahead to show |
-| Fade Zone | 1.5s | Fade-out duration at the leading edge |
-| Color Mode | Speed | Speed, Time Delta, or Both |
-| Delta Range | 2000ms | Saturation range for time delta coloring |
+On your second run and beyond, the full ghost trail is available ahead of you, so you can preview upcoming corners and brake points before you reach them.
 
 ## Color Modes
 
-- **Speed** — Red/yellow/green gradient based on local speed. Shows brake sections and acceleration zones ahead.
-- **Time Delta** — Cyan-green when you're ahead of the ghost, warm orange-red when behind, white when even.
-- **Both** — Speed colors for the line, with line width varying by time delta (thinner = ahead, thicker = behind).
+Ghost Wheels has three ways to color the trails:
 
-## Dependencies
+- **Speed** — See the racing line. Red sections = braking, green = full speed. Great for learning a track.
+- **Time Delta** — See where you're faster or slower than the ghost. Green = you're ahead, red = you're behind.
+- **Both** — Speed colors on the line, with the line getting thicker where you're losing time. Best of both worlds.
 
-- [VehicleState](https://openplanet.dev/docs/reference/vehiclestate) — for accessing ghost vehicle states
-- [Camera](https://openplanet.dev/docs/reference/camera) — for 3D to screen projection
+## Settings
 
-## Project Structure
+Everything is adjustable from the in-game settings panel (Plugins → Ghost Wheels):
 
-```
-ghost_wheels/           # OpenPlanet plugin source
-├── info.toml           # Plugin manifest
-├── Main.as             # Entry point, game loop, UI
-├── GhostTracker.as     # Captures ghost vehicle positions each frame
-├── LineRenderer.as     # Renders trails with windowing, fade, and color modes
-├── SpeedColorMap.as    # Speed-to-color and time-delta-to-color functions
-├── SamplePoint.as      # Data structure for recorded positions
-└── Settings.as         # Plugin settings with [Setting] attributes
-tests/                  # Python hypothesis property-based tests
-docs/                   # Local testing and distribution guides
-```
+- Trail length behind and ahead of your position
+- Fade-out at the leading edge
+- Line width and opacity
+- Color mode and sensitivity
 
-## Building / Testing
+All settings apply instantly and persist between sessions.
 
-Property-based tests use Python [hypothesis](https://hypothesis.readthedocs.io/):
+## Install
 
-```bash
-pip install hypothesis pytest
-pytest tests/ -v
-```
+Search **Ghost Wheels** in the OpenPlanet plugin manager (F3 → Plugin Manager), or download it from [openplanet.dev](https://openplanet.dev/).
+
+Requires [OpenPlanet](https://openplanet.dev/download) for Trackmania.
+
+## Contributing
+
+Issues and PRs welcome. The plugin is written in AngelScript for OpenPlanet. See `docs/` for local testing and development guides.
 
 ## License
 
